@@ -37,6 +37,15 @@ RUN ansible-playbook -vvv -i 'localhost,' -c local /opt/ansible/pmm2-docker/main
   && ansible-playbook -vvv -i 'localhost,' -c local /usr/share/pmm-update/ansible/playbook/tasks/update.yml \
   && ansible-playbook -vvv -i 'localhost,' -c local /opt/ansible/pmm2/post-build-actions.yml
 
+RUN chown -R pmm /opt
+RUN chown -R pmm /var
+RUN chown -R pmm /srv
+RUN chown -R pmm /usr/share
+RUN chown -R pmm /etc
+RUN chown -R pmm /usr/sbin
+RUN chown -R pmm /run
+RUN chown -R pmm /usr/local/percona/
+
 COPY entrypoint.sh /opt/entrypoint.sh
 HEALTHCHECK --interval=3s --timeout=2s --start-period=10s --retries=3 CMD curl -f http://127.0.0.1/v1/readyz || exit 1
 CMD ["/opt/entrypoint.sh"]
