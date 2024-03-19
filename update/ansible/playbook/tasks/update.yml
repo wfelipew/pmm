@@ -82,8 +82,8 @@
 
     - name: Workaround - Force IPV4 on CentOS repo
       lineinfile:
-        dest: /etc/hosts
-        line: "35.180.43.213   mirrorlist.centos.org"
+        dest: /etc/yum.conf
+        line: "ip_resolve=4"
         state: present
 
     # Split download and update to produce a bit more of progress output.
