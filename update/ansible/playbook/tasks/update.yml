@@ -80,6 +80,12 @@
       tags:
         - skip_ansible_lint
 
+    - name: Workaround - Force IPV4 on CentOS repo
+      lineinfile:
+        dest: /etc/hosts
+        line: "35.180.43.213   mirrorlist.centos.org"
+        state: present
+
     # Split download and update to produce a bit more of progress output.
     - name: Download pmm2 packages
       yum:

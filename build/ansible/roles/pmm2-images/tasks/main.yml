@@ -170,6 +170,12 @@
 - name: PMM                        | Enable repo for pmm2-client
   command: percona-release enable {{ pmm_client_repos }}
 
+- name: Workaround - Force IPV4 on Percona repo
+  lineinfile:
+    dest: /etc/hosts
+    line: "49.12.125.205   repo.percona.com"
+    state: present
+
 - name: Install RPMs               | Install pmm2-client rpm
   yum:
     name:
