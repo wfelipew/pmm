@@ -181,6 +181,14 @@
       when: is_docker and not is_supervisor_running.stat.exists and (ansible_distribution == 'OracleLinux' or ansible_distribution == 'AlmaLinux') and ansible_distribution_major_version == '9'
       shell: /usr/local/bin/supervisord -c /etc/supervisord.conf &
 
+    - name: Change /var ownership do PMM user
+      file:
+        path: /var
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+
     - name: Wait until postgres port is present before continuing
       wait_for:
         host: localhost
