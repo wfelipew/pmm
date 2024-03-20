@@ -80,11 +80,11 @@
       tags:
         - skip_ansible_lint
 
-    - name: Workaround - Force IPV4 on CentOS repo
-      lineinfile:
-        dest: /etc/yum.conf
-        line: "ip_resolve=4"
-        state: present
+    # - name: Workaround - Force IPV4 on CentOS repo
+    #   lineinfile:
+    #     dest: /etc/yum.conf
+    #     line: "ip_resolve=4"
+    #     state: present
 
     # Split download and update to produce a bit more of progress output.
     - name: Download pmm2 packages
@@ -216,6 +216,7 @@
     - name: Change /etc ownership do PMM user
       file:
         path: /etc
+        follow: false
         state: directory
         recurse: yes
         owner: pmm
