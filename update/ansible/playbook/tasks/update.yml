@@ -189,6 +189,62 @@
         owner: pmm
         group: pmm
 
+    - name: Change /opt ownership do PMM user
+      file:
+        path: /opt
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+
+    - name: Change /srv ownership do PMM user
+      file:
+        path: /srv
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+      
+    - name: Change /usr/share ownership do PMM user
+      file:
+        path: /usr/share
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+
+    - name: Change /etc ownership do PMM user
+      file:
+        path: /etc
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+
+    - name: Change /usr/sbin ownership do PMM user
+      file:
+        path: /usr/sbin
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+
+    - name: Change /run ownership do PMM user
+      file:
+        path: /run
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+
+    - name: Change /usr/local/percona ownership do PMM user
+      file:
+        path: /usr/local/percona
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+
     - name: Wait until postgres port is present before continuing
       wait_for:
         host: localhost
