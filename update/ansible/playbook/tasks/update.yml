@@ -63,6 +63,8 @@
           - percona-dashboards
           - percona-grafana
         state: latest
+      retries: 5
+      delay: 5
 
     - name: Cleanup yum metadata
       command: yum clean metadata
@@ -92,11 +94,15 @@
         name: "{{ pmm_packages }}"
         state: latest
         download_only: yes
+      retries: 5
+      delay: 5
 
     - name: Update pmm2 packages
       yum:
         name: "{{ pmm_packages }}"
         state: latest
+      retries: 5
+      delay: 5
 
     - name: Create supervisord dir
       file:
@@ -320,6 +326,8 @@
         security: yes
         exclude:
           - nginx*
+      retries: 5
+      delay: 5
 
     - name: Updating only select packages EL7
       when:
@@ -334,6 +342,8 @@
         - libssh2
         - sshpass
         - vi
+      retries: 5
+      delay: 5
 
     - name: Remove ansible RPM if installed   | EL9
       when:
@@ -355,6 +365,8 @@
           - ansible-collection-community-postgresql
           - ansible-collection-ansible-posix
         state: present
+      retries: 5
+      delay: 5
 
     - name: Update system packages EL9
       when:
@@ -366,6 +378,8 @@
         state: latest
         exclude:
           - nginx*
+      retries: 5
+      delay: 5
 
     - name: Install nginx
       include_role:

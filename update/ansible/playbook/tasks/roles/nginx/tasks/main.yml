@@ -35,6 +35,8 @@
   yum:
     name: nginx
     state: installed
+  retries: 5
+  delay: 5
 
 - name: Add ssl-related files and scripts
   copy:
