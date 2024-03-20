@@ -67,6 +67,8 @@
     state: installed
     enablerepo: clickhouse
   ignore_errors: "{{ ansible_check_mode }}" # We don't have clickhouse repo when we run ansible with --check
+  register: result
+  until: not result.failed 
   retries: 5
   delay: 5
 

@@ -35,6 +35,8 @@
   yum:
     name: nginx
     state: installed
+  register: result
+  until: not result.failed 
   retries: 5
   delay: 5
 

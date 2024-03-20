@@ -63,6 +63,8 @@
           - percona-dashboards
           - percona-grafana
         state: latest
+      register: result
+      until: not result.failed
       retries: 5
       delay: 5
 
@@ -94,6 +96,8 @@
         name: "{{ pmm_packages }}"
         state: latest
         download_only: yes
+      register: result
+      until: not result.failed
       retries: 5
       delay: 5
 
@@ -101,6 +105,8 @@
       yum:
         name: "{{ pmm_packages }}"
         state: latest
+      register: result
+      until: not result.failed
       retries: 5
       delay: 5
 
@@ -326,6 +332,8 @@
         security: yes
         exclude:
           - nginx*
+      register: result
+      until: not result.failed 
       retries: 5
       delay: 5
 
@@ -342,6 +350,8 @@
         - libssh2
         - sshpass
         - vi
+      register: result
+      until: not result.failed
       retries: 5
       delay: 5
 
@@ -365,6 +375,8 @@
           - ansible-collection-community-postgresql
           - ansible-collection-ansible-posix
         state: present
+      register: result
+      until: not result.failed
       retries: 5
       delay: 5
 
@@ -378,6 +390,8 @@
         state: latest
         exclude:
           - nginx*
+      register: result
+      until: not result.failed
       retries: 5
       delay: 5
 
