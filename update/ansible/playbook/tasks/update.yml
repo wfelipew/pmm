@@ -166,33 +166,7 @@
         path: /etc/systemd/system/supervisord.service
         state: absent
 
-    # Start the services
-    - name: Enable supervisord        | Make the service persist between reboots
-      when: not is_docker
-      systemd:
-        name: supervisord
-        enabled: yes
-
-    - name: Supervisord start        | Start supervisord service for AMI/OVF
-      when: not is_docker
-      systemd:
-        name: supervisord
-        state: started # supervisord may already be running
-        daemon_reload: yes
-
-    - name: Check that supervisor socket exists
-      stat:
-        path: /var/run/supervisor/supervisor.sock
-      register: is_supervisor_running
-
-    - name: Supervisord start EL7         | Start supervisord for docker
-      when: is_docker and not is_supervisor_running.stat.exists and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
-      shell: supervisord -c /etc/supervisord.conf &
-
-    - name: Supervisord start EL9        | Start supervisord for docker
-      when: is_docker and not is_supervisor_running.stat.exists and (ansible_distribution == 'OracleLinux' or ansible_distribution == 'AlmaLinux') and ansible_distribution_major_version == '9'
-      shell: /usr/local/bin/supervisord -c /etc/supervisord.conf &
-
+    # Change ownership before starting services
     - name: Change /var ownership do PMM user
       file:
         path: /var
@@ -257,6 +231,33 @@
         recurse: yes
         owner: pmm
         group: pmm
+
+    # Start the services
+    - name: Enable supervisord        | Make the service persist between reboots
+      when: not is_docker
+      systemd:
+        name: supervisord
+        enabled: yes
+
+    - name: Supervisord start        | Start supervisord service for AMI/OVF
+      when: not is_docker
+      systemd:
+        name: supervisord
+        state: started # supervisord may already be running
+        daemon_reload: yes
+
+    - name: Check that supervisor socket exists
+      stat:
+        path: /var/run/supervisor/supervisor.sock
+      register: is_supervisor_running
+
+    - name: Supervisord start EL7         | Start supervisord for docker
+      when: is_docker and not is_supervisor_running.stat.exists and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+      shell: supervisord -c /etc/supervisord.conf &
+
+    - name: Supervisord start EL9        | Start supervisord for docker
+      when: is_docker and not is_supervisor_running.stat.exists and (ansible_distribution == 'OracleLinux' or ansible_distribution == 'AlmaLinux') and ansible_distribution_major_version == '9'
+      shell: /usr/local/bin/supervisord -c /etc/supervisord.conf &
 
     - name: Wait until postgres port is present before continuing
       wait_for:
