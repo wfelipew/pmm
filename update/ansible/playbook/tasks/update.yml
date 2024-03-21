@@ -65,7 +65,7 @@
         state: latest
       register: result
       until: not result.failed
-      retries: 5
+      retries: 20
       delay: 5
 
     - name: Cleanup yum metadata
@@ -98,7 +98,7 @@
         download_only: yes
       register: result
       until: not result.failed
-      retries: 5
+      retries: 20
       delay: 5
 
     - name: Update pmm2 packages
@@ -107,7 +107,7 @@
         state: latest
       register: result
       until: not result.failed
-      retries: 5
+      retries: 20
       delay: 5
 
     - name: Create supervisord dir
@@ -335,7 +335,7 @@
           - nginx*
       register: result
       until: not result.failed 
-      retries: 5
+      retries: 20
       delay: 5
 
     - name: Updating only select packages EL7
@@ -353,7 +353,7 @@
         - vi
       register: result
       until: not result.failed
-      retries: 5
+      retries: 20
       delay: 5
 
     - name: Remove ansible RPM if installed   | EL9
@@ -378,7 +378,7 @@
         state: present
       register: result
       until: not result.failed
-      retries: 5
+      retries: 20
       delay: 5
 
     - name: Update system packages EL9
@@ -393,7 +393,7 @@
           - nginx*
       register: result
       until: not result.failed
-      retries: 5
+      retries: 20
       delay: 5
 
     - name: Install nginx

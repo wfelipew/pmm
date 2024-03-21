@@ -37,7 +37,7 @@
     state: installed
   register: result
   until: not result.failed 
-  retries: 5
+  retries: 20
   delay: 5
 
 - name: Add ssl-related files and scripts
