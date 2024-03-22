@@ -36,6 +36,7 @@ RUN chown -R pmm.root /usr/sbin
 RUN chown -R pmm.root /run
 RUN chown -R pmm.root /usr/local/percona/
 RUN chown -R pmm.root /.ansible/
+RUN chown -R pmm.root /home
 
 RUN chmod -R g+rwx /opt
 RUN chmod -R g+rwx /var
@@ -46,6 +47,7 @@ RUN chmod -R g+rwx /usr/sbin
 RUN chmod -R g+rwx /run
 RUN chmod -R g+rwx /usr/local/percona
 RUN chmod -R g+rwx /.ansible/
+RUN chmod -R g+rwx /home
 
 COPY entrypoint.sh /opt/entrypoint.sh
 HEALTHCHECK --interval=3s --timeout=2s --start-period=10s --retries=3 CMD curl -f http://127.0.0.1/v1/readyz || exit 1
