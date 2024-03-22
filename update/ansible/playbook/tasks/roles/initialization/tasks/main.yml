@@ -74,7 +74,7 @@
     path: "/srv/clickhouse"
     state: directory
     owner: pmm
-    group: pmm
+    group: root
 
 - name: Update (both)
   block:
@@ -91,7 +91,7 @@
             path: "/srv/clickhouse/flags"
             state: directory
             owner: pmm
-            group: pmm
+            group: root
             recurse: true
 
         - name: Create empty file to convert clickhouse databases from ordinary to atomic
@@ -99,7 +99,7 @@
             path: "/srv/clickhouse/flags/convert_ordinary_to_atomic"
             state: touch
             owner: pmm
-            group: pmm
+            group: root
 
         - name: Restart clickhouse EL7
           when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'

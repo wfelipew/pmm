@@ -24,14 +24,28 @@ RUN ansible-playbook -vvv -i 'localhost,' -c local /opt/ansible/pmm2-docker/main
     && ansible-playbook -vvv -i 'localhost,' -c local /usr/share/pmm-update/ansible/playbook/tasks/update.yml \
     && ansible-playbook -vvv -i 'localhost,' -c local /opt/ansible/pmm2/post-build-actions.yml
 
-RUN chown -R pmm /opt
-RUN chown -R pmm /var
-RUN chown -R pmm /srv
-RUN chown -R pmm /usr/share
-RUN chown -R pmm /etc
-RUN chown -R pmm /usr/sbin
-RUN chown -R pmm /run
-RUN chown -R pmm /usr/local/percona/
+
+RUN mkdir /.ansible/
+
+RUN chown -R pmm.root /opt
+RUN chown -R pmm.root /var
+RUN chown -R pmm.root /srv
+RUN chown -R pmm.root /usr/share
+RUN chown -R pmm.root /etc
+RUN chown -R pmm.root /usr/sbin
+RUN chown -R pmm.root /run
+RUN chown -R pmm.root /usr/local/percona/
+RUN chown -R pmm.root /.ansible/
+
+RUN chmod -R g+rwx /opt
+RUN chmod -R g+rwx /var
+RUN chmod -R g+rwx /srv
+RUN chmod -R g+rwx /usr/share
+RUN chmod -R g+rwx /etc
+RUN chmod -R g+rwx /usr/sbin
+RUN chmod -R g+rwx /run
+RUN chmod -R g+rwx /usr/local/percona
+RUN chmod -R g+rwx /.ansible/
 
 COPY entrypoint.sh /opt/entrypoint.sh
 HEALTHCHECK --interval=3s --timeout=2s --start-period=10s --retries=3 CMD curl -f http://127.0.0.1/v1/readyz || exit 1
