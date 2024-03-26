@@ -35,7 +35,7 @@
 
 # local yum repo for building of pmm server docker image in autobuild jobs
 - name: PMM                        | Add local YUM repository
-  when: ansible_virtualization_type == "docker" 
+  when: ansible_virtualization_type == "docker" or ansible_virtualization_type == "VirtualPC"
   yum_repository:
     name: local
     description: Local YUM repository - x86_64
