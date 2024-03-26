@@ -29,6 +29,10 @@
     gpgkey: file:///etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY
     ip_resolve: 4
 
+- name: Debug virtualization type
+  debug:
+    msg: "ansible_virtualization_type: {{ ansible_virtualization_type }}"
+
 # local yum repo for building of pmm server docker image in autobuild jobs
 - name: PMM                        | Add local YUM repository
   when: ansible_virtualization_type == "docker" 
