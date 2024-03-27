@@ -95,7 +95,7 @@
 - name: Create users for non-docker images          | Create users
   user:
     name: "pmm"
-  when: ansible_virtualization_type != "docker"
+  when: ansible_virtualization_type != "docker" and ansible_virtualization_type != "VirtualPC"
 
 - name: Create users and groups in docker container
   block:
@@ -190,11 +190,11 @@
     enablerepo: "{{ pmm_client_repo_name }}"
 
 - name: Disable pmm-agent service | Disable pmm-agent
-  when: ansible_virtualization_type != "docker"
+  when: ansible_virtualization_type != "docker" and ansible_virtualization_type != "VirtualPC"
   service: name=pmm-agent state=stopped enabled=no
 
 - name: Create tmp dirs           | Create tmp dirs
-  when: ansible_virtualization_type != "docker"
+  when: ansible_virtualization_type != "docker" and ansible_virtualization_type != "VirtualPC"
   command: /usr/bin/systemd-tmpfiles --create --remove --boot --exclude-prefix=/dev
 
 - name: Copy grafana.ini file for the first run
