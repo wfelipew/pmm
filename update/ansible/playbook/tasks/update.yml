@@ -214,6 +214,37 @@
         recurse: yes
         owner: pmm
         group: pmm
+      ignore_errors: true
+
+    - name: Change /etc/ dirs ownership do PMM user
+      file:
+        path: "{{ item }}"
+        follow: false
+        state: directory
+        recurse: yes
+        owner: pmm
+        group: pmm
+      with_items:
+        - /etc/nginx
+        - /etc/grafana
+        - /etc/supervisord.d
+        - /etc/clickhouse-client
+        - /etc/clickhouse-client
+        - /etc/yum
+        - /etc/yum.repos.d
+        - /etc/systemd
+
+    - name: Change /etc/ files ownership do PMM user
+      file:
+        path: "{{ item }}"
+        state: file
+        owner: pmm
+        group: pmm
+      with_items:
+        - /etc/supervisord.conf
+        - /etc/victoriametrics-promscrape.yml
+        - /etc/alertmanager.yml
+        - /etc/yum.conf
 
     - name: Change /usr/sbin ownership do PMM user
       file:
