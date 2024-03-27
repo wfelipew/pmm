@@ -31,7 +31,7 @@ RUN chown -R pmm.root /opt
 RUN chown -R pmm.root /var
 RUN chown -R pmm.root /srv
 RUN chown -R pmm.root /usr/share
-RUN chown -R pmm.root /etc
+RUN chown -f -R pmm.root /etc || true
 RUN chown -R pmm.root /usr/sbin
 RUN chown -R pmm.root /run
 RUN chown -R pmm.root /usr/local/percona/
@@ -42,7 +42,7 @@ RUN chmod -R g+rwx /opt
 RUN chmod -R g+rwx /var
 RUN chmod -R g+rwx /srv
 RUN chmod -R g+rwx /usr/share
-RUN chmod -R g+rwx /etc
+RUN chmod -f -R g+rwx /etc || true
 RUN chmod -R g+rwx /usr/sbin
 RUN chmod -R g+rwx /run
 RUN chmod -R g+rwx /usr/local/percona
