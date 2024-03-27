@@ -62,6 +62,8 @@ RUN chmod -R g+rwx /usr/local/percona
 RUN chmod -R g+rwx /.ansible/
 RUN chmod -R g+rwx /home
 
+RUN rm -rf /tmp/.s.PGSQL.5432.lock
+
 COPY entrypoint.sh /opt/entrypoint.sh
 HEALTHCHECK --interval=3s --timeout=2s --start-period=10s --retries=3 CMD curl -f http://127.0.0.1/v1/readyz || exit 1
 CMD ["/opt/entrypoint.sh"]
