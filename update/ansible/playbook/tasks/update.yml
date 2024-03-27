@@ -242,8 +242,6 @@
         group: pmm
       with_items:
         - /etc/supervisord.conf
-        - /etc/victoriametrics-promscrape.yml
-        - /etc/alertmanager.yml
         - /etc/yum.conf
 
     - name: Change /usr/sbin ownership do PMM user
